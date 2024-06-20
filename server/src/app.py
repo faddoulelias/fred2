@@ -57,7 +57,7 @@ def upload_file():
     predictions = model.predict(img)
     print(predictions)
     print(np.argmax(predictions))
-    class_names = ['avion', 'chambre_onde', 'jacques_julien', 'moteur', 'robot']
+    class_names = ['planeur', 'chambre_onde', 'jacques_julien', 'moteur', 'robot']
     print("The image belongs to the class: ", class_names[np.argmax(predictions)])
 
     return jsonify({'class': class_names[np.argmax(predictions)]})

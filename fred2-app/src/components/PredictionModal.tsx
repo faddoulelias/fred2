@@ -1,5 +1,7 @@
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
-import { getClassName } from "../api/apiServices";
+import { getClassName, getMonumentByClassId, ImageClass, Monument } from "../constants/Monuments";
+import { useEffect, useState } from "react";
+import MonumentAudio from "./MonumentAudio";
 
 interface ModalProps {
     visible: boolean;
@@ -11,6 +13,12 @@ interface ModalProps {
 function Modal(props: ModalProps) {
     if (!props.visible) return null;
 
+    const renderMonumentAudio = (classId: ImageClass) => {
+        const monument = getMonumentByClassId(classId);
+        if (!monument) return null;
+        return <MonumentAudio name={monument?.name} iconName={monument?.iconName} audio={monument?.audio} />;
+    };
+
     return (
         <View style={styles.container}>
             <View style={styles.modal}>
@@ -19,9 +27,12 @@ function Modal(props: ModalProps) {
                 </Text>
 
                 {props.isPredicting ? null : (
-                    <Text>
-                        Vous semblez être devant{' : '} {getClassName(props.prediction as any)}
-                    </Text>
+                    <>
+                        <Text>
+                            Vous semblez être devant{' : '} {getClassName(props.prediction as any)}
+                        </Text>
+                        {renderMonumentAudio(props.prediction as any)}
+                    </>
                 )}
 
                 <TouchableOpacity onPress={props.onClose}>

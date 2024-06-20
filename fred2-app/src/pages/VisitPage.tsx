@@ -2,31 +2,22 @@ import { StyleSheet, View, ScrollView } from 'react-native';
 import React from 'react';
 import PageHeader from '../components/PageHeader';
 import MonumentAudio from '../components/MonumentAudio';
+import { Monument, monumentsList } from '../constants/Monuments';
 
 type VisitPageProps = {
     onBack: () => void;
 }
 
-type Monuments = {
-    name: string;
-    iconName: string;
-    audioPath: string;
-}
 
 function VisitPage(props: VisitPageProps) {
-    // const monuments: Monuments[] = [
-    //     { name: 'Monument 1', iconName: 'music-note', audioPath: '../assets/audio/canard.mp3' },
-    //     { name: 'Monument 2', iconName: 'music-note', audioPath: '../assets/audio/canard.mp3' },
-    //     { name: 'Monument 3', iconName: 'music-note', audioPath: '../assets/audio/canard.mp3' },
-    // ];
-
+    const monuments: Monument[] = monumentsList;
     return (
         <View style={styles.container}>
             <PageHeader title='Visit' onBack={props.onBack} />
             <ScrollView style={styles.audiosContainer}>
-                {/* {monuments.map((monument, index) => (
-                    <MonumentAudio key={index} name={monument.name} iconName={monument.iconName} audioPath={monument.audioPath} />
-                ))} */}
+                {monuments.map((monument, index) => (
+                    <MonumentAudio key={index} name={monument.name} iconName={monument.iconName} audio={monument.audio} />
+                ))}
             </ScrollView>
         </View>
     );
