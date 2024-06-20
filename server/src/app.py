@@ -42,6 +42,7 @@ def chat():
 @app.route('/upload', methods=['POST'])
 def upload_file():
     model = tf.keras.models.load_model('../server/database/model.keras')
+    print("got here")
     if 'file' not in request.files:
         return jsonify({'error': 'No file part'}), 400
 
@@ -59,7 +60,7 @@ def upload_file():
     class_names = ['avion', 'chambre_onde', 'jacques_julien', 'moteur', 'robot']
     print("The image belongs to the class: ", class_names[np.argmax(predictions)])
 
-    return jsonify({'message': 'File received'})
+    return jsonify({'class': class_names[np.argmax(predictions)]})
     
     
     
